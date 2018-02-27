@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+apply plugin: 'groovyx.android'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        applicationId "dz.crystalbox.magicsurvey"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        // workaround for http://stackoverflow.com/questions/20673625/android-gradle-plugin-0-7-0-duplicate-files-during-packaging-of-apk
+//        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/groovy-release-info.properties'
+        exclude 'META-INF/DISCLAIMER'
+        exclude 'META-INF/LICENSE'
+//        exclude 'META-INF/services/org.codehaus.groovy.transform.ASTTransformation'
+//        exclude 'META-INF/services/org.codehaus.groovy.runtime.ExtensionModule'
+    }
+}
+
+androidGroovy {
+    options {
+        configure(groovyOptions) {
+            encoding = 'UTF-8'
+            forkOptions.jvmArgs = ['-noverify']
+            // maybe necessary if you use Google Play Services
+        }
+        sourceCompatibility = '1.7'
+        // as of 0.3.9 these are automatically set based off the android plugin's
+        targetCompatibility = '1.7'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:design:26.+'
+
+    // Groovy for Android Gradle Plugin
+    compile 'org.codehaus.groovy:groovy:2.4.4:grooid'
+    compile('org.codehaus.groovy:groovy-json:2.4.4') {
+        transitive = false
+    }
+
+    // SwissKnife (multi-purpose library for groovy in android)
+    compile 'com.arasthel:swissknife:1.4.0'
+
+    // VolleyPlus (Http library for easy networking with full image caching)
+    compile 'dev.dworks.libs:volleyplus:0.1.4'
+
+    // SugarORM (Object Relational Mapping for SQLite)
+    compile 'com.github.satyan:sugar:1.5'
+
+    testCompile 'junit:junit:4.12'
+    compile project(path: ':surveylib')
+}

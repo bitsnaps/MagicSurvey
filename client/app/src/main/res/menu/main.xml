@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/action_answers"
+        android:orderInCategory="101"
+        app:showAsAction="ifRoom"
+        android:title="Answers" />
+
+    <item
+        android:id="@+id/action_quit"
+        android:orderInCategory="102"
+        android:title="Quit" />
+
+</menu>
