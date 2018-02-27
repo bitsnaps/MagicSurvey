@@ -1,0 +1,2 @@
+//include 'ajax-scaffold'
+//project(':ajax-scaffold').projectDir = new File(settingsDir, './AjaxScaffold')
